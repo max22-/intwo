@@ -113,9 +113,9 @@ system: symbol_section rule_section net_section
 
 id: ARITY_ID | COLOR_ID | ID
 ;
-symbol_id: id { $$ = create_void_symbol($1); g_print("symbol_id : >%s<\n", $1) }
+symbol_id: id { $$ = create_void_symbol($1); g_print("symbol_id : >%s<\n", $1); }
 ;
-sound_id: id { $$ = g_strdup($1); g_print("sound_id : >%s<\n", $1) }
+sound_id: id { $$ = g_strdup($1); g_print("sound_id : >%s<\n", $1); }
 ;
 color_id: COLOR_ID { $$ = g_malloc( sizeof(GdkColor) ); gdk_color_parse($1, $$); }
 ;
