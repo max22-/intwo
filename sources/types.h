@@ -16,7 +16,7 @@
 // MACROS ------------------------------------------------------------------------
 
 #define MACINTOSH
-#define SOUND_DIR "launch -b -c hook $HOME/Lippi/sons/"
+#define SOUND_DIR "launch -b -c hook $HOME/sons/"
 
 
 #define INTERFACE(s)			((s)->net.interface)
