@@ -1,0 +1,69 @@
+symbol
+
+cons,		LimeGreen:	2
+nil,		LimeGreen:	0
+cmp,		RoyalBlue1:	3
+"isort",	red:		1
+insert,		pink:		2
+ssort,	red:		1
+select,		pink:		3
+cmp',	yellow		: 3
+0, gray : 0	
+S, gray: 1
+
+rule
+
+0 >< cmp(Y, MAXI, MINI)
+MINI -- 0
+MAXI -- Y
+.
+
+S(X) >< cmp(Y, MAXI, MINI)
+Y -- cmp'(MAXI, MINI, X)
+.
+
+0 >< cmp'(MAXI, MINI, X)
+MINI -- 0
+MAXI -- S(X)
+.
+
+S(Y) >< cmp'(MAXI, MINI, X)
+X -- cmp(Y, MAXI1, MINI1)
+MINI -- S(MINI1)
+MAXI -- S(MAXI1)
+.
+
+// tri par insertion --------------------------------------------------
+
+"isort"(nil) >< nil .
+"isort"(l') >< cons(u, "isort"(insert(l', u))) .
+insert(cons(u, nil), u) >< nil .
+insert(cons(pp, l''), u) >< cons(ZZ, insert(l'', pg))
+u -- cmp(ZZ, pg, pp) .
+
+
+// tri par sélection 
+
+ssort(nil) >< nil .
+ssort(cons(pp, reste)) >< cons(u, select(ssort(reste), pp, u)) .
+select(nil, X, X) >< nil .
+select(cons(pg, l''), pp, u) >< cons(v, select(l'',ZZ , v))
+u -- cmp(ZZ, pg, pp).
+
+net
+
+// "isort"(i) -- cons(v_1, cons(v_2, cons(v_3, cons(v_4, nil))))
+// u_4 -- v_4
+// u_3 -- v_3
+// u_2 -- v_2
+// u_1 -- v_1
+
+// ssort(s) -- cons(v_1, cons(v_2, cons(v_3, cons(v_4, nil))))
+
+// select(rest, min, v_1) -- cons(v_2, cons(v_3, cons(v_4, nil)))
+
+
+insert(result, " u ") -- cons(w_2, cons(w_3, cons(w_4, nil)))
+
+u -- cmp(v, max, min)
+

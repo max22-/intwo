@@ -1,0 +1,160 @@
+// =============================================================================
+// Réduction à gauche des lambda-termes avec parseur
+// version "peigne" avec analyseur syntaxique
+// Création : Mardi 30 juin 1999
+// Dernière modification : Jeudi 21 juin 2001
+//
+// REM :
+//	-	termes codés (ou passifs, inhibés) :	lambda, @, delta, epsilon
+//	-	termes décodés (ou actifs, stimulés) :	lambda, a, delta, epsilon, " " 
+// =============================================================================
+// Pour entrer rapidement les caractères d'entrée:
+// (En attendant de pouvoir brancher STDIN sur un port libre du réseau)
+//
+// (1)
+// taper les caractères, séparés par des espaces avec un nom de port libre
+// à la fin. Exemple: Lx ( x ) x fin
+//
+// (2)
+// puis ajouter des guillemets et des parenthèses ouvrantes:
+// :s/\([^ ]*\) /"\1"(/cg
+//
+// (3)
+// ajouter suffisamment de parenthèses fermantes.)
+// =============================================================================
+
+
+symbol
+
+@,			LimeGreen	: 2
+lambda,		LimeGreen	: 2
+gamma,		tomato		: 2
+" ",		white		: 1
+
+delta,		LimeGreen	: 2
+epsilon,	LimeGreen	: 0
+
+a,			tomato		: 2
+codeur,		black		: 1
+codeur,		black		: 2
+
+// Flot de caractères ==========================================================
+
+"(",		grey		: 1
+")",		grey		: 1
+"Lx",		grey		: 1
+"Ly",		grey		: 1
+"Lz",		grey		: 1
+"x",		grey		: 1
+"y",		grey		: 1
+"z",		grey		: 1
+
+// Analyse syntaxique et transformation en traduction codée ====================
+
+"T",		magenta		: 2
+"x",		LimeGreen	: 0
+"y",		LimeGreen	: 0
+"z",		LimeGreen	: 0
+"x",		magenta		: 3
+"y",		magenta		: 3
+"z",		magenta		: 3
+
+liée,		magenta		: 1
+
+
+
+
+rule
+
+
+// beta-réduction (1) ==========================================================
+
+lambda(X,Y) >< a(Y, X) .
+
+
+// Décodage (4+1) ==============================================================
+
+@(" "(a(X,Y)), X) >< " "(Y) .
+lambda(" "(X), Y) >< " "(lambda(X,Y)) .
+
+
+// Duplication d'un lambda-terme codé (5+1) ====================================
+
+delta(@(A1,B1), @(A2,B2)) >< @(delta(A1,A2), delta(B1,B2)) .
+delta(lambda(A1,B1), lambda(A2,B2)) >< lambda(delta(A1,A2), gamma(B1,B2)) .
+delta(delta(A1,B1), gamma(A2,B2)) >< gamma(delta(A1,A2), delta(B1,B2)) .
+delta(A0, B0) >< delta(A0, B0) .
+gamma(epsilon, epsilon) >< epsilon .
+
+
+// codage et réduction à gauche (5+1) ==========================================
+
+lambda(codeur(X), codeur(epsilon,Y)) >< codeur(lambda(X,Y)) .
+delta(codeur(X,Y), codeur(Z,X)) >< codeur(Z,Y) .
+codeur(X) >< codeur(X) .
+codeur(X,delta(Y,X)) >< " "(codeur(Y)) .
+codeur(X) >< a(" "(codeur(Y)), codeur(@(X, Y))) .
+codeur(X,X) >< epsilon .
+
+
+// Effacement d'un lambda-terme codé (0+6) =====================================
+
+epsilon >< @(epsilon, epsilon) .
+epsilon >< lambda(epsilon, epsilon) .
+epsilon >< delta(epsilon, epsilon) .
+epsilon >< epsilon .
+
+
+// Analyse syntaxique (notation de Krivine) ====================================
+
+T(C,@(A,B)) >< "("(T(")"(T(C,B)),A)) .
+T(A, lambda(B,C)) >< Lx(T(A, x(epsilon,C,B))) .
+T(A, lambda(B,C)) >< Ly(T(A, y(epsilon,C,B))) .
+T(A, lambda(B,C)) >< Lz(T(A, z(epsilon,C,B))) .
+T(A,x) >< x(A) .
+T(A,y) >< y(A) .
+T(A,z) >< z(A) .
+
+")"(X) >< ")"(X) .
+
+
+// Transformation en traduction codée ==========================================
+
+lambda(x(F,D,A),liée(X)) >< x(F,D,lambda(A,X)) .
+lambda(y(F,D,A),liée(X)) >< y(F,D,lambda(A,X)) .
+lambda(z(F,D,A),liée(X)) >< z(F,D,lambda(A,X)) .
+
+x(F,delta(A,F),A) >< x .
+y(F,delta(A,F),A) >< y .
+z(F,delta(A,F),A) >< z .
+
+x(B,B,y) >< y .
+x(B,B,z) >< z .
+
+y(B,B,x) >< x .
+y(B,B,z) >< z .
+
+z(B,B,x) >< x .
+z(B,B,y) >< y .
+
+x(B,B,X) >< liée(X) .
+y(B,B,X) >< liée(X) .
+z(B,B,X) >< liée(X) .
+
+x(F,D,@(V,U)) >< @(x(F,X,V),x(X,D,U)) .
+y(F,D,@(V,U)) >< @(y(F,X,V),y(X,D,U)) .
+z(F,D,@(V,U)) >< @(z(F,X,V),z(X,D,U)) .
+
+liée(delta(X,Y)) >< delta(liée(X),liée(Y)) .
+liée(epsilon) >< epsilon .
+
+
+net
+
+
+"("("Lx"("("("x"(")"("x"(")"("Ly"("y"(flot)))))))))
+-- T(reste,racine)
+// -- T(reste," "(codeur(racine)))
+
+
+

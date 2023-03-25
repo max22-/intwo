@@ -1,0 +1,72 @@
+// Les tours de Hanoï (11 octobre 2001)
+
+symbol
+
+0, turquoise2	:	0
+S, turquoise2	:	1
+delta, orange1	:	2
+
+cons, green3	:	3
+nil, green3		:	0
+1, green3		:	1
+2, green3		:	1
+3, green3		:	1
+4, green3		:	1
+
+move, red1		:	3
+
+"S » D", orange1:	2
+"S » A", orange1:	2
+"D » A", orange1:	2
+"A » D", orange1:	2
+"D » S", orange1:	2
+"A » S", orange1:	2
+
+"S D", pink1	:	1
+"S A", pink1	:	1
+"D A", pink1	:	1
+"A D", pink1	:	1
+"D S", pink1	:	1
+"A S", pink1	:	1
+
+rule
+
+"S » D"(A,A) >< 0 .
+"S » A"(A,A) >< 0 .
+"D » A"(A,A) >< 0 .
+"D » S"(A,A) >< 0 .
+"A » S"(A,A) >< 0 .
+"A » D"(A,A) >< 0 .
+
+"S » D"(X,Y) >< S(delta("S » A"(X,"S D"(Z)),"A » D"(Z,Y))) .
+"S » A"(X,Y) >< S(delta("S » D"(X,"S A"(Z)),"D » A"(Z,Y))) .
+"D » A"(X,Y) >< S(delta("D » S"(X,"D A"(Z)),"S » A"(Z,Y))) .
+"D » S"(X,Y) >< S(delta("D » A"(X,"D S"(Z)),"A » S"(Z,Y))) .
+"A » S"(X,Y) >< S(delta("A » D"(X,"A S"(Z)),"D » S"(Z,Y))) .
+"A » D"(X,Y) >< S(delta("A » S"(X,"A D"(Z)),"S » D"(Z,Y))) .
+
+"S D"(cons(A',B',C)) >< cons(move(B,B',A'),B,C) .
+"S A"(cons(A',B,C')) >< cons(move(C,C',A'),B,C) .
+"D S"(cons(A',B',C)) >< cons(A,move(A,A',B'),C) .
+"D A"(cons(A,B',C')) >< cons(A,move(C,C',B'),C) .
+"A S"(cons(A',B,C')) >< cons(A,B,move(A,A',C')) .
+"A D"(cons(A,B',C')) >< cons(A,B,move(B,B',C')) .
+
+1(X) >< move(Y,1(Y),X) .
+2(X) >< move(Y,2(Y),X) .
+3(X) >< move(Y,3(Y),X) .
+4(X) >< move(Y,4(Y),X) .
+
+delta(S(X),S(Y)) >< S(delta(X,Y)) .
+delta(0,0) >< 0 .
+
+
+net
+
+"S » D"(init, "final 1") -- S(S(0))
+
+"S » D"(cons(a,b,c), "final 2") -- S(S(0))
+
+"S » D"(cons(1(2(3(nil))),nil,nil), "final 3") -- S(S(S(0)))
+
+

@@ -1,0 +1,31 @@
+symbol
+	@, limegreen	: 2
+	a, turquoise1	: 2
+	K, grey			: 0
+	K, grey			: 1
+	S, yellow		: 0
+	S, yellow		: 1
+	S, yellow		: 2
+	delta, red		: 2
+	epsilon, orange	: 0
+
+rule
+	a(X,R) >< @(a(Z, a(X,R)),Z) .
+	K >< a(X,K(X)) .
+	K(X) >< a(epsilon,X) .
+	S >< a(X, S(X)) .
+	S(X) >< a(Y, S(X,Y)) .
+	S(X,Y) >< a(delta(Z2,Z1), @(@(X,Z1),@(Y,Z2))) .
+
+	epsilon >< @(epsilon,epsilon) .
+	epsilon >< K .
+	epsilon >< S .
+	delta(@(X1,Y1),@(X2,Y2)) >< @(delta(X1,X2),delta(Y1,Y2)) .
+	delta(K,K) >< K .
+	delta(S,S) >< S .
+	
+net
+	@(@(@(S,K),K),@(K,S))
+	--
+	a(" ",result)
+

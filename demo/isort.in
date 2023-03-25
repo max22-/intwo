@@ -1,0 +1,22 @@
+symbol
+
+	cons,		LimeGreen:	2
+	nil,		LimeGreen:	0
+	cmp,		RoyalBlue1:	3
+	isort,		red:		1
+	insert,		pink:		2
+
+rule
+
+	isort(nil) >< nil .
+	isort(l') >< cons(u, "isort"(insert(l', u))) .
+	insert(cons(u, nil), u) >< nil .
+	insert(cons(pp, l''), cmp(ZZ, pg, pp))
+	>< cons(ZZ, insert(l'', pg)) .
+
+net
+
+	isort(result)
+	-- cons(v_1, cons(v_2, cons(v_3, cons(u_4, nil))))
+
+	u_3 -- v_3 u_2 -- v_2 u_1 -- v_1 

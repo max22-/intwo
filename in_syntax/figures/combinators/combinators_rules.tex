@@ -1,0 +1,111 @@
+% combinators_rules
+% 9 novembre 2001
+%
+% regles des combinateurs avec les syntaxes graphiques et
+% textes
+
+
+\textsf{
+\begin{tabular}{lc}
+%
+% dundur -----------------------------------------------------------------------
+%
+\makebox[125pt]{\inarray{../figures/combinators/dundur.eepic}} &
+%
+\begin{tabular}{rcl}
+%
+\dur($r'$, $r''$) & \cut & \dun($x$, $y$) \\
+\makebox[15pt]{$x$} & \connect & \dur($x'$, $x''$) \\
+\makebox[15pt]{$y$} & \connect & \dur($y'$, $y''$) \\
+\makebox[15pt]{$r'$} & \connect & \dun($x'$, $y'$) \\
+\makebox[15pt]{$r''$} & \connect & \dun($x''$, $y''$)
+%
+\\[6pt]
+%
+\dun(\,\dur($x'$, $x''$), \dur($y'$, $y''$)\,) &\cut&
+\dur(\,\dun($x'$, $y'$), \dun($x''$, $y''$)\,)
+%
+\end{tabular} \\ \\
+%
+% dundun -----------------------------------------------------------------------
+%
+\makebox[90pt]{\inarray{../figures/combinators/dundun.eepic}} &
+%
+\begin{tabular}{rcl}
+%
+\dun($u$, $v$) & \cut & \dun($x$, $y$) \\
+$x$ & \connect & $v$ \\
+$y$ & \connect & $u$
+%
+\\[6pt]
+%
+\dun($x$, $y$) &\cut& \dun($y$, $x$)
+%
+\end{tabular} \\ \\
+%
+% durdur -----------------------------------------------------------------------
+%
+\makebox[90pt]{\hspace{-16pt}\inarray{../figures/combinators/durdur.eepic}} &
+%
+\begin{tabular}{rcl}
+%
+\dur($u$, $v$) & \cut & \dur($x$, $y$) \\
+$x$ & \connect & $u$ \\
+$y$ & \connect & $v$
+%
+\\[6pt]
+%
+\dur($x$, $y$) &\cut& \dur($x$, $y$)
+%
+\end{tabular} \\ \\
+%
+% dureff -----------------------------------------------------------------------
+%
+\makebox[95pt]{\hspace{-15pt}\inarray{../figures/combinators/dureff.eepic}} &
+%
+\begin{tabular}{rcl}
+%
+\dur($x$, $y$)& \cut & \eff  \\
+$x$ & \connect & \eff \\
+$y$ & \connect & \eff 
+%
+\\[6pt]
+%
+\eff &\cut& \dur(\eff, \eff)
+%
+\end{tabular} \\ \\
+%
+% duneff -----------------------------------------------------------------------
+%
+\makebox[95pt]{\hspace{-5pt}\inarray{../figures/combinators/duneff.eepic}} &
+%
+\begin{tabular}{rcl}
+%
+\dun($x$, $y$) & \cut & \eff \\
+$x$ & \connect & \eff \\
+$y$ & \connect & \eff 
+%
+\\[6pt]
+%
+\eff &\cut& \dun(\eff, \eff)
+%
+\end{tabular} \\ \\
+%
+% effeff -----------------------------------------------------------------------
+%
+\makebox[50pt]{\inarray{../figures/combinators/effeff.eepic}} &
+%
+\begin{tabular}{rcl}
+%
+\eff & \cut & \eff
+%
+\end{tabular}
+%
+\end{tabular}
+}
+
+
+
+
+
+

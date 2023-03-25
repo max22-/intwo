@@ -1,0 +1,62 @@
+// peigne_faible.in, réduction de tête faible avec des
+// duplicateurs sous forme de peigne.
+// création : 16 mars 2000
+
+symbol
+
+@,			limegreen	: 2
+a,			pink		: 2
+lambda,		limegreen	: 2
+delta,		orange		: 2
+epsilon,	orange		: 0
+gamma,		orange		: 2
+eff,		red			: 0
+
+
+rule
+
+lambda(X,Y) >< a(Y,X) .
+
+a(C, A) >< @(a(B, a(C,A)),B) .
+
+delta(X,Y) >< delta(X,Y) .
+
+delta(@(A1,B1),@(A2,B2)) >< @(delta(A1,A2),delta(B1,B2)) .
+
+delta(lambda(A1,B1),lambda(A2,B2)) >< lambda(delta(A1,A2),gamma(B1,B2)) .
+
+gamma(delta(A1,B1),delta(A2,B2)) >< delta(delta(A1,A2),gamma(B1,B2)) .
+
+
+
+
+gamma(eff,eff) >< eff .
+@(eff,eff) >< eff .
+lambda(eff,eff) >< eff .
+delta(eff,eff) >< eff .
+eff >< eff .
+epsilon >< eff .
+
+gamma(epsilon,epsilon) >< epsilon .
+@(epsilon,epsilon) >< epsilon .
+lambda(epsilon,epsilon) >< epsilon .
+delta(epsilon,epsilon) >< epsilon .
+epsilon >< epsilon .
+
+
+net
+
+
+TROIS -- lambda(lambda(@(UN3, @(UN2, @(UN1, UN0))),
+delta(UN0, epsilon)), delta(UN1, delta(UN2, delta(UN3, epsilon))))
+
+DEUX -- lambda(lambda(@(DE12, @(DE11, DE2)),
+delta(DE2,epsilon)), delta(DE11, delta(DE12,epsilon)))
+
+a(vide,résultat) --
+@(@(@(TROIS, DEUX), lambda(X, delta(X, epsilon))), *)
+
+
+
+
+

@@ -1,0 +1,41 @@
+symbol
+
+cons,	limegreen	: 2
+nil,	limegreen	: 0
+insert,	tomato		: 3
+cmp,	blue		: 3
+huff,	magenta		: 2
+node,	yellow		: 2
+
+rule
+
+nil >< insert(nil, u, u) .
+
+cons(v,l) >< insert(l', u', u)
+v -- cmp(M, m, u)
+m -- u'
+l -- insert(l1, u1, M)
+l' -- cons(u1, l1)
+.
+
+nil >< huff(T,T) .
+
+cons(T2, L) >< huff(R, T1)
+L -- insert(L1, U1, node(T1,T2))
+L1 -- huff(R, U1)
+.
+
+
+
+
+
+
+net
+
+
+cons(b, cons(c1, cons(d1, cons(e1, nil)))) -- huff(huffman, a)
+
+
+e -- e1
+d -- d1
+c -- c1

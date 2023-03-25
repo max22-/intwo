@@ -1,0 +1,98 @@
+// Développement d'une expression arithmétique donnée sous forme
+// d'un arbre (cf. thèse)
+
+// distribution.in : 20 janvier 1999
+// Derniere modification le 20 janvier 1999
+
+
+symbol
+
+a : 0
+b : 0
+c : 0
+d : 0
+e : 0
+f : 0
+
+dist : 1
+distX : 2
+distX' : 2
+plus : 2
+mult : 2
+dupl : 2
+
+
+rule
+
+dist(a) >< a ,
+dist(b) >< b ,
+dist(c) >< c ,
+dist(d) >< d ,
+dist(e) >< e ,
+dist(f) >< f ,
+
+dist(a') >< plus(a1, a2)
+dist(a1') -- a1
+dist(a2') -- a2
+a' -- plus(a1', a2')
+,
+
+dist(a') >< mult(a1, a2)
+dist(a1') -- a1
+dist(a2') -- a2
+distX(a2', a') -- a1'
+,
+
+distX(distX'(a, a'), a') >< a ,
+distX(distX'(b, a'), a') >< b ,
+distX(distX'(c, a'), a') >< c ,
+distX(distX'(d, a'), a') >< d ,
+distX(distX'(e, a'), a') >< e ,
+distX(distX'(f, a'), a') >< f ,
+
+distX(b0, a') >< mult(a1, a2)
+distX'(mult(a1,a2), a') -- b0
+,
+
+distX(b0, a') >< plus(a1,a2)
+b0 -- dupl(b1, b2)
+a1 -- distX(b1, X)
+a2 -- distX(b2, Y)
+plus(X, Y) -- a'
+,
+
+distX'(b0, mult(a, b0)) >< a ,
+distX'(b0, mult(b, b0)) >< b ,
+distX'(b0, mult(c, b0)) >< c ,
+distX'(b0, mult(d, b0)) >< d ,
+distX'(b0, mult(e, b0)) >< e ,
+distX'(b0, mult(f, b0)) >< f ,
+
+distX'(b0, a') >< mult(a1, a2)
+a' -- mult(b0, mult(a1, a2))
+,
+
+distX'(b0, a') >< plus(a1,a2)
+b0 -- dupl(b1,b2)
+distX'(b1, X) -- a1
+distX'(b2, Y) -- a2
+plus(X, Y) -- a'
+,
+
+dupl(a,a) >< a ,
+dupl(b,b) >< b ,
+dupl(c,c) >< c ,
+dupl(d,d) >< d ,
+dupl(e,e) >< e ,
+dupl(f,f) >< f ,
+
+dupl(plus(A1,B1), plus(A2,B2)) >< plus(dupl(A1,A2), dupl(B1,B2)) ,
+
+dupl(mult(A1,B1), mult(A2,B2)) >< mult(dupl(A1,A2), dupl(B1,B2))
+
+
+net
+ 
+dist(x)
+--
+mult(plus(a,b), plus(c,d))

@@ -1,0 +1,148 @@
+// fusion bitonique (Batcher 1968)
+// Le 21 janvier 2002
+
+symbol
+
+cmp,	magenta		: 3
+fusion,	magenta		: 2
+cons,	blue		: 2
+cons*,	blue		: 2
+elt,	white		: 1
+elt*,	white		: 1
+rev,	limegreen	: 1
+tri,	orangered	: 1
+S,		gray		: 1
+0,		gray		: 0
+cmp',	yellow		: 3
+
+shuf,	red			: 3
+bi,		yellow		: 1
+
+
+rule
+
+elt(X) >< shuf(Y, max,min)
+Y -- elt*(Y1)
+X -- cmp(Y1, max1,min1)
+min -- elt(min1)
+max -- elt(max1)
+,
+tambour
+.
+
+cons(A1,A2) >< shuf(cons*(B2,B1), MAXI, MINI)
+A1 -- shuf(B1, MAXI1, MINI1)
+A2 -- shuf(B2, MAXI2, MINI2)
+MINI -- cons(MINI1,MINI2)
+MAXI -- cons(MAXI1,MAXI2)
+,
+Miaulement
+.
+
+bi(R) >< elt(X)
+R -- elt(X)
+,
+Klaxon
+.
+
+bi(R) >< cons(A,B)
+A -- shuf(B, MAX,MIN)
+MAX -- bi(MAX1)
+MIN -- bi(MIN1)
+R -- cons(MIN1,MAX1)
+,
+Hennissement
+.
+
+cons(A1,A2) >< fusion(cons*(B2,B1), RESULT)
+A1 -- cmp(B1, MAXI1, MINI1)
+A2 -- cmp(B2, MAXI2, MINI2)
+MINI1 -- fusion(MINI2,RESULT1)
+MAXI1 -- fusion(MAXI2,RESULT2)
+RESULT -- cons(RESULT1,RESULT2)
+,
+"Sosumi.aiff"
+.
+
+elt(X) >< cmp(elt*(Y), MAXI, MINI)
+X -- cmp(Y, MAXI1, MINI1)
+MINI -- elt(MINI1)
+MAXI -- elt(MAXI1)
+,
+"Purr.aiff"
+.
+
+elt(X) >< fusion(elt*(Y), RESULT)
+X -- cmp(Y, MAXI, MINI)
+RESULT -- cons(elt(MINI), elt(MAXI))
+,
+"Ping.aiff"
+.
+
+cons(A,B) >< rev(RESULT)
+A -- rev(AR)
+B -- rev(BR)
+RESULT -- cons(BR,AR)
+,
+"Glass.aiff"
+.
+
+elt(X) >< rev(RESULT)
+RESULT -- elt(X)
+,
+"Frog.aiff"
+.
+
+elt(X) >< elt*(X) , "Sosumi.aiff" .
+
+elt(X) >< tri(RESULT)
+RESULT -- elt(X)
+.
+
+cons(A,B) >< tri(RESULT)
+A -- tri(RESULT1)
+B -- tri(RESULT2)
+RESULT2 -- rev(RESULT2BIS)
+RESULT1 -- fusion(RESULT2BIS, RESULT)
+.
+
+0 >< cmp(Y, MAXI, MINI)
+MINI -- 0
+MAXI -- Y
+.
+
+S(X) >< cmp(Y, MAXI, MINI)
+Y -- cmp'(MAXI, MINI, X)
+.
+
+0 >< cmp'(MAXI, MINI, X)
+MINI -- 0
+MAXI -- S(X)
+.
+
+S(Y) >< cmp'(MAXI, MINI, X)
+X -- cmp(Y, MAXI1, MINI1)
+MINI -- S(MINI1)
+MAXI -- S(MAXI1)
+.
+
+
+cons(X,Y) >< cons*(Y,X) , "Sosumi.aiff".
+
+
+net
+
+// elt(x) -- shuf(elt(y), max,min)
+
+cons(cons(elt(A1),elt(A2)),cons(elt(A3),elt(A4))) -- bi(result)
+
+// cons(
+// cons(cons(elt(A1),elt(A2)), cons(elt(A3),elt(A4))),
+// cons(cons(elt(A5),elt(A6)), cons(elt(A7),elt(A8)))) -- tri(résultat)
+
+// A2 -- S(S(0))
+// A1 -- S(S(S(0)))
+// A4 -- S(0)
+// A3 -- S(S(S(S(0))))
+
+

@@ -1,0 +1,40 @@
+% syntaxe des r\`egles
+% 15 novembre 2001
+
+
+Les r\`egles d'interaction sont d\'ecrites en utilisant la m\^eme m\'ethode
+que pour les r\'eseaux.
+%
+Il suffit de consid\'erer le r\'eseau obtenu en connectant
+les ports libres du membre gauche et du membre droit selon leur
+correspondance. On obtient un r\'eseau avec une coupure et aucun
+port libre. La syntaxe de Lafont pour une r\`egle d'interaction
+est donc :
+
+\begin{center}
+%
+\textsf{
+\begin{tabular}{l@{\ \ ::=\ \ }l}
+%
+R\`EGLE		& symbole \ LISTE \cut\ symbole \ LISTE
+%
+\end{tabular}
+}
+%
+\end{center}
+
+Les r\`egles d'un programme sont s\'epar\'ees par une virgule.
+La figure \ref{combinators:fig} donne les r\`egles des combinateurs
+(voir \cite{Laf95}) sous forme graphique et textuelle (selon la syntaxe
+g\'en\'erale et selon la syntaxe de Lafont).
+
+\begin{figure}[p]
+\cinput{../figures/combinators/combinators_rules.tex}
+\caption{\textit{Les r\`egles des combinateurs d'interaction}}
+\label{combinators:fig}
+\end{figure}
+
+
+
+
+

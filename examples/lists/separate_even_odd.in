@@ -1,0 +1,29 @@
+symbol
+
+cons, green3		: 2
+nil, green3			: 0
+sépare, tomato1	: 2
+
+a, turquoise2		: 0
+b, turquoise2		: 0
+c, turquoise2		: 0
+d, turquoise2		: 0
+e, turquoise2		: 0
+
+
+rule
+
+sépare(nil, nil) >< nil
+.
+
+sépare(pairs, impairs) >< cons(u, l)
+impairs -- cons(u, impairs')
+l -- sépare(impairs', pairs)
+.
+
+
+net
+
+cons(a, cons(b, cons(c, cons(d, cons(e, nil)))))
+--
+sépare(pairs, impairs)

@@ -1,0 +1,176 @@
+// =============================================================================
+// Réduction à gauche des lambda-termes.
+// Version "gamma" où les traductions codées ne contiennent pas du duplicateur
+// (les règles de duplication sont des règles de commutation)
+// Création : Mardi 30 juin 1999
+// Dernière modification : Mercredi 16 février 2000
+//
+// REM :
+//	-	termes codés (ou passifs, inhibés) : lambda, @, gamma, " ", epsilon
+//	-	termes décodés (ou actifs, stimulés) : lambda, a, delta, epsilon, " " 
+// =============================================================================
+
+
+symbol
+
+@,			Purple		: 2
+lambda,		Green		: 2
+gamma,		RoyalBlue1	: 2
+
+ell,		tomato		: 2
+delta,		yellow		: 2
+a,			red			: 2
+
+" ",		white		: 1
+codeur,		black		: 1
+
+epsilon,	LimeGreen	: 0
+
+
+rule
+
+
+// beta-réduction (1) ==========================================================
+
+ell(X,Y) >< a(Y, X) .
+
+
+// Décodage (4+1) ==============================================================
+
+@(" "(a(X,Y)), X) >< " "(Y) .
+lambda(" "(X), " "(Y)) >< " "(ell(X,Y)) .
+gamma(" "(X), " "(Y)) >< " "(delta(X,Y)) .
+" "(X) >< " "(X) .
+
+
+// Duplication d'un lambda-terme codé (5+1) ====================================
+
+delta(@(A1,B1), @(A2,B2)) >< @(delta(A1,A2), delta(B1,B2)) .
+delta(lambda(A1,B1), lambda(A2,B2)) >< lambda(delta(A1,A2), delta(B1,B2)) .
+delta(gamma(A1,B1), gamma(A2,B2)) >< gamma(delta(A1,A2), delta(B1,B2)) .
+delta(" "(X), " "(Y)) >< " "(delta(X,Y)) .
+delta(A0, B0) >< delta(A0, B0) .
+
+delta(epsilon, epsilon) >< epsilon .
+
+
+// codage et réduction à gauche (5+1) ==========================================
+
+ell(codeur(X), codeur(Y)) >< codeur(lambda(X,Y)) .
+delta(codeur(X), codeur(Y)) >< codeur(gamma(X,Y)) .
+codeur(X) >< codeur(X) .
+codeur(" "(X)) >< " "(codeur(X)) .
+codeur(X) >< a(" "(codeur(Y)), codeur(@(X, Y))) .
+
+codeur(epsilon) >< epsilon .
+
+
+// Effacement d'un lambda-terme codé (0+6) =====================================
+
+epsilon >< @(epsilon, epsilon) .
+epsilon >< lambda(epsilon, epsilon) .
+epsilon >< gamma(epsilon, epsilon) .
+epsilon >< " "(epsilon) .
+epsilon >< epsilon .
+
+
+net
+
+// (2)2
+// --------
+//
+// a(lambda(lambda(@(A, @(B, C)), " " (C)), gamma( " "(B), " "(A))),
+// codeur("(2)2"))
+// --
+// ell(ell(T, F), delta(E," "( a(@(E,F), T) )))
+
+
+// (delta)2
+// --------
+//
+// a(lambda(lambda(@(A, @(B, C)), " " (C)), gamma( " "(B), " "(A))),
+// codeur("(delta)2"))
+// --
+// ell(D, delta(E, " "(a(E, D))))
+
+
+// (id)1
+// -----
+//
+// a(lambda(lambda(@(A,B)," "(B))," "(A)), "(id)1") -- lambda(C, " "(C))
+
+
+// (lxly y)1
+// ---------
+//
+// a(lambda(lambda(@(A,B)," "(B))," "(A)),"(lxly y)1")
+// --
+// lambda(lambda(C," "(C)),epsilon)
+
+
+// (delta)id
+// ---------
+//
+// a(lambda(A, " "(A)), "(delta)id") -- lambda(B, delta(C, " "(a(C, B))))
+
+
+// méchant
+// -------
+//
+// méchant -- lambda(D, C)
+// a(lambda(@(A, @(B, C)), gamma(" "(B), " "(A))), D) --
+// lambda(E, delta(F, " "(a(lambda(@(F, lambda(G, epsilon)), " "(G)), E))))
+
+
+T1 -- lambda(@(H1,lambda(@(H2, lambda(Q," "(Q))) ,epsilon))
+,gamma(" "(H2), " "(H1)))
+
+T2 -- lambda(@(@(@(F,lambda(@(L,N)," "(N))),X), Y) ," "(L))
+
+T3 -- lambda(lambda(lambda(@(@(G1,U), @(G2,V))
+," "(V)), " "(U)), gamma(" "(G2)," "(G1)))
+
+" "(codeur(T)) --
+lambda(lambda(@(lambda(@(T1,T2)," "(F)), T3)
+," "(Y))," "(X))
+
+
+
+
+
+
+
+// miscellaneous
+// -------------
+
+// IDENT -- lambda(ID1, " "(ID1))
+
+// SUCC -- lambda(lambda(lambda(@(SU22, @(@(SU1, SU21), SU3)), " "(SU3)), gamma(" "(SU21), " "(SU22))), " "(SU1))
+
+// MULT -- lambda(lambda(lambda(@(MU1, @(MU2,MU3)), " "(MU3))," "(MU2))," "(MU1))
+
+// delta(PAIR1,PAIR2) -- lambda(lambda(lambda(@(@(PA3,PA1),PA2), " "(PA3))," "(PA2))," "(PA1))
+
+// delta(FST1,FST2) -- lambda(lambda(FS1, epsilon), " "(FS1))
+
+// SND -- lambda(lambda(SN2, " "(SN2)), epsilon)
+
+// ADD -- lambda(lambda(lambda(lambda(@(@(AD1, AD32), @(@(AD2, AD31),AD4)), " "(AD4)), gamma(" "(AD31), " "(AD32))), " "(AD2)), " "(AD1))
+
+// ZERO -- lambda(lambda(ZE2, " "(ZE2)), epsilon)
+
+// UNO -- lambda(lambda(@(UN1,UN2), " "(UN2)), " "(UN1))
+
+// DEUX -- lambda(lambda(@(DE12, @(DE11, DE2)), " "(DE2)), gamma(" "(DE11), " "(DE12)))
+
+// TROIS -- lambda(lambda(@(TR13, @(TR12, @(TR11, TR2))), " "(TR2)), gamma(gamma(" "(TR11), " "(TR12)), " "(TR13)))
+
+// SIX -- lambda(lambda(@(SI16,@(SI15, @(SI14,@(SI13, @(SI12, @(SI11, SI2)))))), " "(SI2)), gamma(gamma(" "(SI11), " "(SI12)), gamma(" "(SI13),gamma(" "(SI14),gamma(" "(SI15)," "(SI16))))))
+
+
+// FACT -- lambda(@(@(@(FA1, NEXTFACT), @(@(PAIR1, UNO), ZERO)), FST1), " "(FA1))
+
+// NEXTFACT -- lambda(@(@(lambda(lambda(@(@(PAIR2, @(@(MULT, NE2),NE32)), NE31), gamma(" "(NE31)," "(NE32))), " "(NE2)), @(NE12, FST2)), @(SUCC, @(NE11, SND))),gamma(" "(NE11)," "(NE12)))
+
+
+// " "(radix) -- @(lambda(@(Y1,Y2), gamma(" "(Y2)," "(Y1))), lambda(@(lambda(@(X1,X2), gamma(" "(X2)," "(X1))), lambda(@(X,Y), " "(Y)))," "(X)))

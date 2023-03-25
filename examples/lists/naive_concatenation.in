@@ -1,0 +1,28 @@
+symbol
+
+cons, green3		: 2
+nil, green3			: 0
+append, tomato1		: 2
+a, turquoise2		: 0
+b, turquoise2		: 0
+c, turquoise2		: 0
+d, turquoise2		: 0
+e, turquoise2		: 0
+
+
+rule
+
+nil >< append(liste', liste')
+.
+
+cons(u, liste) >< append(liste', liste'')
+liste'' -- cons(u, aux)
+liste -- append(liste', aux)
+.
+
+
+net
+
+cons(a, cons(b, nil))
+--
+append(cons(c, cons(d, cons(e, nil))), résultat)

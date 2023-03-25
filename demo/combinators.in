@@ -1,0 +1,30 @@
+symbol
+
+delta,		yellow		: 2
+gamma,		limegreen	: 2
+epsilon,	honeydew	: 0
+
+rule
+
+gamma(delta(A1,A2),delta(B1,B2)) >< delta(gamma(A1,B1),gamma(A2,B2)) ,
+"klaxon.aiff" .
+
+delta(epsilon, epsilon) >< epsilon ,"glass.aiff"
+.
+
+gamma(epsilon, epsilon) >< epsilon, "trompette2.mov" .
+
+delta(X,Y) >< delta(X,Y),"trompette.mov" .
+
+gamma(X,Y) >< gamma(Y,X) .
+
+epsilon >< epsilon, "tambour4.mov" .
+
+net
+
+// gamma(A, epsilon) -- delta(epsilon,A)
+
+delta(x,epsilon) -- gamma(X, gamma(epsilon, X))
+
+// delta(,y) -- gamma(gamma(X,gamma(X,epsilon)), epsilon)
+

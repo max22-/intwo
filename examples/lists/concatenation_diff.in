@@ -1,0 +1,32 @@
+symbol
+
+diff, green3		: 2
+cons, green3		: 2
+
+append, tomato1		: 2
+ouvre, tomato1		: 2
+
+a, turquoise2		: 0
+b, turquoise2		: 0
+c, turquoise2		: 0
+d, turquoise2		: 0
+e, turquoise2		: 0
+
+
+rule
+
+diff(début1, fin1) >< append(liste2, résultat)
+liste2 -- ouvre(début2, fin2)
+résultat -- diff(début1, fin2)
+fin1 -- début2
+.
+
+diff(début, fin) >< ouvre(début, fin)
+.
+
+
+net
+
+diff( cons(a, cons(b, X)), X )
+--
+append( diff(cons(c, cons(d, cons(e, Y))), Y), résultat)

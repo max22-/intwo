@@ -1,0 +1,53 @@
+// single_infix_parser.in (un seul opérateur)
+// création : le 25 février 1999
+//
+// parser d'expressions arithmétiques en ordre infixe formées de : 0 + ( )
+// Il suffit de changer une seule règle pour avoir l'addition associative à gauche
+// ou à droite
+// -----------------------------------------------------------------------------
+
+
+symbol
+
++	, white			: 1
+x	, white			: 1
+y	, white			: 1
+z	, white			: 1
+"("	, white			: 1
+")"	, white			: 1
+
+x	, limegreen		: 0
+y	, limegreen		: 0
+z	, limegreen		: 0
++	, limegreen		: 2
+
+T	, tomato		: 2	// flot -- T(reste, arbre)
+F	, orange		: 3 // flot -- F(reste, arbre, arbre aux)
+
+
+rule
+
+T(r, x) >< x(r) .
+T(r, y) >< y(r) .
+T(r, z) >< z(r) .
+T(r, a) >< "("(T(F(r, a, X), X)) .
+F(r, X, X) >< ")"(r) .
+F(r, a, X) >< +(T(F(r, a, +(X, a2)), a2)) .	// + associatif à gauche
+
+// F(r, +(X, a1), X) >< +(T(F(r, a1, a2), a2)) .// + associatif à droite
+
+
+net
+
+T(reste, arbre) --
+
+"(" (
+"x" (
+"+" (
+"y" (
+"+" (
+"z" (
+")" (
+flot )))))))
+
+

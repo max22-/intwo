@@ -1,0 +1,32 @@
+// prefix.in
+//
+// parser d'expressions arithmétiques en ordre préfixe formées de : x y +
+// -----------------------------------------------------------------------------
+
+
+symbol
+
++	, white			: 1
+x	, white			: 1
+y	, white			: 1
+
+x		, limegreen		: 0
+y		, limegreen		: 0
+plus	, limegreen		: 2
+
+E	, tomato		: 2	// flot -- E(reste, arbre)
+
+
+rule
+
+x(R) >< E(R,x) .
+
+y(R) >< E(R,y) .
+
++(E(E(R,B),A)) >< E(R,plus(A,B)) .
+
+net
+
+E(rest, tree) -- +(x(+(y(y(stream)))))
+
+

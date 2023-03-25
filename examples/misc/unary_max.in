@@ -1,0 +1,34 @@
+symbol
+
+0, turquoise2	:	0
+S, turquoise2	:	1
+
+efface, green3	:	0
+dupl, green3	:	2
+
+max, orchid1	:	2
+max', orchid1	:	2
+
+
+rule
+
+max(Y, résultat) >< 0
+résultat -- Y .
+
+max(Y, résultat) >< S(X)
+max'(X, résultat) -- Y .
+
+max'(Y, résultat) >< 0
+résultat -- S(Y) .
+
+max'(Y, résultat) >< S(X)
+max(Y, résultat') -- X
+résultat -- S(résultat')
+.
+
+
+net
+
+S(S(0)) -- max(S(S(S(0))), "max(2,3)")
+
+

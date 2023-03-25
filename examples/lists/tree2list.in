@@ -1,0 +1,30 @@
+// tree2list.in
+// Transforms a tree built with "node" into a list built with "cons" and "nil".
+
+
+symbol
+
+	cons,	LimeGreen	: 2
+	nil,	yellow		: 0
+	a,		gray		: 0
+	b,		gray		: 0
+	c,		gray		: 0
+	d,		gray		: 0
+	node,	blue		: 2
+	comb,	red			: 2
+
+
+rule
+
+	comb(A, cons(a,A)) >< a .
+	comb(A, cons(b,A)) >< b .
+	comb(A, cons(c,A)) >< c .
+	comb(A, cons(d,A)) >< d .
+
+	comb(A, B) >< node(comb(C,B),comb(A,C)) .
+
+
+net
+
+	comb(nil, result) -- node(a, node(node(b, c), d))
+

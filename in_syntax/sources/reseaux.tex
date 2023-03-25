@@ -1,0 +1,156 @@
+% Syntaxe pour les r\'eseaux
+% 5 novembre 2001
+
+
+
+On utilise deux unit\'es lexicales pour d\'ecrire un r\'eseau
+sous forme textuelle :
+
+\begin{itemize}
+%
+\item Les \emph{symboles} servent \`a donner les cellules du r\'eseau.
+%
+\item Les \emph{variables} servent \`a nommer les ports du r\'eseau et
+\`a sp\'ecifier les connexions entre eux.
+%
+\end{itemize}
+
+% Il faut d'abord donner les cellules du r\'eseau.
+% %
+% On introduit des \emph{variables} afin de nommer le port principal et
+% (\'eventuellement) les ports auxiliaires de chaque cellule.
+% %
+
+Voici un exemple de r\'eseau compos\'e de cellules
+dont tous les ports sont connect\'es \`a des ports libres :
+%
+\cinput{../figures/misc/cell_net_syntax.tex}
+%
+Par convention, on d\'ecide de nommer les ports d'une cellule 
+en suivant le sens horaire. Les parenth\`eses sont omises pour
+les cellules d'arit\'e z\'ero.
+%
+Un r\'eseau peut contenir plusieurs cellules portant le m\^eme
+symbole mais chaque port a un nom distinct ; ce qui supprime
+toute ambiguit\'e.
+%
+On compl\`ete ensuite la description du r\'eseau en listant
+les connexions entre les ports. Une connexion est donn\'ee par
+un couple de variables. Une permutation $\varphi$ sur
+$\{1, \ldots, n\}$ est d\'ecrite comme suit:
+%
+\cinput{../figures/misc/permutation.tex}
+%
+En composant la liste des cellules du r\'eseau et une permutation, on
+peut ainsi d\'ecrire un r\'eseau quelconque:
+
+\cinput{../figures/misc/misc_net_syntax.tex}
+
+On distingue donc deux types de variables selon leurs nombres
+d'occurrences dans la description d'un r\'eseau.
+Les \emph{variables li\'ees} apparaissent deux fois et correspondent
+\`a une connexion entre deux ports.
+Les \emph{variables libres} apparaissent une fois et correspondent
+\`a un port libre.
+%
+La syntaxe d'un r\'eseau est donc d\'ecrite par la grammaire suivante
+o\`u les non-terminaux sont \'ecrits en majuscules :
+
+\begin{center}
+%
+\textsf{
+\begin{tabular}{l@{\ \ ::=\ \ }l}
+%
+R\'ESEAU	& vide $|$  COUPURE \  R\'ESEAU					\\
+COUPURE		& TERME \connect\ TERME							\\
+TERME		& variable $|$ symbole \ LISTE					\\
+LISTE		& vide $|$ ( LISTE' )							\\
+LISTE'		& TERME $|$ TERME , LISTE'
+%
+\end{tabular}
+}
+%
+\end{center}
+
+Remarquons que le non-terminal \textsf{COUPURE} correspond \`a une
+coupure au sens usuel (entre deux cellules) ou \`a une connexion avec
+un port libre.
+%
+Un r\'eseau peut \^etre sp\'ecifi\'e de plusieurs fa\c cons diff\'erentes.
+Si $u$ et $v$ sont deux termes, on peut indiff\'eremment
+\'ecrire $u \connect v$ ou $v \connect u$. De plus, on peut introduire
+autant de variables li\'ees que l'on veut. Les descriptions suivantes
+sont \'equivalentes :
+
+\begin{center}
+$
+\begin{array}{llll}
+%
+\begin{array}[t]{l}
+p \connect q \\
+\end{array}
+%
+&
+%
+\begin{array}[t]{l}
+p \connect x \\
+x \connect q
+\end{array}
+%
+&
+%
+\begin{array}[t]{l}
+p \connect x \\
+x \connect y \\
+y \connect q
+\end{array}
+%
+&
+\cdots
+\end{array}
+$
+\end{center}
+
+On peut facilement condenser la description d'un r\'eseau.
+Consid\'erons une variable li\'ee $x$ apparaissant dans une
+coupure \(x \connect y\) o\`u $y$ est une variable ;
+il suffit de supprimer la coupure \(x \connect y\) et
+de remplacer l'autre occurrence de $x$ par $y$.
+%
+Plus g\'en\'eralement, on peut appliquer la m\^eme m\'ethode pour une
+variable li\'ee apparaissant dans une coupure de la forme
+$x \connect T$ o\`u $T$ est un terme.
+%
+En appliquant cette m\'ethode sur le r\'eseau pr\'ec\'edent,
+on obtient une description condens\'ee sans coupure entre un terme
+et une variable li\'ee ; on dit que le r\'eseau est \'ecrit selon
+la syntaxe de Lafont \cite{Laf90}.
+
+\cinput{../figures/misc/var_cut_elim.tex}
+
+On peut aussi \'ecrire un r\'eseau en utilisant directement la
+syntaxe de Lafont. Il suffit de repr\'esenter le r\'eseau
+avec tous les ports principaux orient\'es vers le bas ; on
+consid\`ere alors le r\'eseau comme une liste de couples d'arbres
+auxquels on ajoute des liens entre les feuilles.
+On introduit ainsi une variable li\'ee pour chaque lien axiome.
+Un exemple est donn\'e dans la figure \ref{lafont_syntax:fig}.
+%
+La syntaxe condens\'ee de Lafont a \'evidemment l'avantage d'une
+grande concision mais la syntaxe g\'en\'erale permet de composer
+deux r\'eseaux en concat\'enant simplement leur description textuelle
+et en ajoutant \'eventuellement des connexions entre leurs ports
+libres.
+
+
+\begin{figure}
+\cinput{../figures/misc/lafont_syntax.tex}
+\caption{\textit{Un r\'eseau \'ecrit selon la syntaxe de Lafont}}
+\label{lafont_syntax:fig}
+\end{figure}
+
+
+
+
+
+

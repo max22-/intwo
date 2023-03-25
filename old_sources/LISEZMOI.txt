@@ -1,0 +1,56 @@
+in (Interaction Nets), LISEZMOI.txt, jeudi 23 mars 2000
+Sylvain LIPPI, lippi@iml.univ-mrs.fr
+
+Voici quelques informations sur l'installation et l'utilisation de
+l'interprète graphique "in" pour les réseaux d'interaction. Ce n'est
+pas un manuel d'utilisation.
+
+L'utilisation de l'interprète graphique pour les réseaux d'interaction
+suppose l'installation préalable de :
+
+- GTK 1.1.14 (ou supérieure en théorie)
+- flex et bison (lex et yacc devraient aussi convenir)
+- gcc (cc devrait aussi convenir)
+
+
+COMPILATION :
+
+1) extraire l'archive tar                       >> tar xvf in.tar
+2) se mettre dans le répertoire "in"			>> cd in
+3) compiler les sources                         >> make
+
+
+LANCEMENT :
+
+Le nom de l'exécutable est in (comme Interaction Nets)
+                        >> in examples/arith_unaire.in
+                        OU
+                        >> in
+
+(Deux exemples de programmes sont dans le sous-répertoire "examples")
+
+UTILISATION :
+
+L'interface graphique est très simple. Une fenêtre présente le réseau
+d'interaction au cours de l'exécution et une autre la PROCHAINE
+règle d'interaction qui sera appliquée. Le bouton "Reduce" réduit une
+seule coupure alors que "Reduce all" réduit toutes les coupures jusqu'à
+ce que l'on ait un réseau réduit.
+
+La syntaxe pour la description d'un système d'interaction est presque
+la même que dans l'article "Interaction nets" (POPL90) de Yves Lafont ;
+les différences sont :
+
+- les crochets sont remplacés par des parenthèses
+- les règles sont SEPAREES par une virgule
+- on peut spécifier une couleur pour chaque symbole
+
+
+PROBLEMES CONNUS :
+
+- pas de message d'erreur en cas d'erreur de syntaxe
+- il ne doit pas y avoir de coupure irréductibles lorsque l'on utilise
+  "reduce all"
+
+Merci, de me tenir au courant de tout autre problème rencontré ou de
+m'envoyer vos remarques. (lippi@iml.univ-mrs.fr)

@@ -1,0 +1,92 @@
+% FACERE, le jeudi 6 décembre 2001
+%
+% liste des développements futurs pour l'interpète des
+% réseaux d'interaction
+
+
+% AFFICHAGE GRAPHIQUE --------------------------------------------------------
+
+Elimination des changements brusques, interactivit\'e de l'affichage,
+am\'elioration de la lisibilit\'e :
+
+- zoom in / zoom out.
+Par exemple, lorsque l'on clique sur une cellule qui est la racine
+d'un r\'eseau principal, on remplace ce r\'eseau principal par une
+cellule repr\'esentant un r\'eseau principal.
+
+- Forme des cellules.
+Par exemple, pour la cellule "compare" (arit\'e 3), on pr\'ef\`ererait
+un rectangle.
+
+- afficher les liens axiomes?
+
+- Choix du port consid\'er\'e comme la racine d'un arbre.
+actuellement c'est syst\'ematiquement le port principal
+
+- changement de l'ordre d'affichage des coupures.
+
+- Bouton "Undo".
+pour afficher les r\'eseaux pr\'ec\'edents.
+
+- Am\'elioration de l'affichage des liens axiomes.
+Eviter les ar\^etes plus tordues que ce qui est n\'ecessaire.
+
+
+% FONCTIONNALITES ------------------------------------------------------------
+
+- Un vrai interpr\`ete avec ligne de commande.
+Actuellement, il fonctionne comme un compilateur.
+
+- Points d'arr\^ets.
+Il faut d\'efinir ce qu'est un point d'arr\^et dans un r\'eseau.
+
+- Filtre \`a coupures \`a la grep.
+pour ne r\'eduire que certaines coupures. Par exemple, les coupures
+"delta >< *" o\`u * = n'importe quel symbole.
+
+- Bouton "Reopen"
+
+- Entr\'ees / Sorties
+possibilit\'e de "connecter" un port libre sur STDIN / STDOUT. Chaque
+caract\`ere tap\'e serait transform\'e en une cellule unaire "entrante" /
+chaque cellule unaire "sortante" serait affich\'ee sur la console.
+
+- IN <-> C
+interfa\c cage entre un programme IN et un programme C.
+
+- Vscrollbar automatiquement en bas
+
+- message d'erreur si le fichier \`a ouvrir est introuvable.
+
+- sucre syntaxique pour les cha\^\i nes de cellules unaires.
+Par exemple, x -- "hello"(y) \'equivalent \`a x -- h(e(l(l(o(y)))))
+
+- Message d'erreur s'il y a plusieurs r\`egles pour une m\^eme coupure.
+
+- Message d'erreur pour les erreurs de syntaxe.
+
+
+% future.tex
+% obsolete
+% January 15. 2002
+
+
+Future developments can be classified in three groups:
+
+\begin{itemize}
+
+\item Improvement of the graphical interface. This concerns the
+implementation of an incremental layout, zoom in/out on part
+of a net, graphical edition of net
+
+\item Extension of functionnalities.
+A cut filter so that "reduce all"
+reduce all the cuts that pass the filter.
+A debugging tool with breakpoints (what is a breakpoint?)
+Macro definitions.
+
+\item Interfacing. with the keyboard, with a screen, with other
+programming languages.
+
+\end{itemize}
+

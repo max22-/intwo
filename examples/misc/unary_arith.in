@@ -1,0 +1,101 @@
+// Quelques opérations élémentaires en arithmétique unaire,
+// Créé le 16 octobre 1998
+// Dernière modification le 6 janvier 1999
+
+
+symbol
+
+0, turquoise2	:	0
+S, turquoise2	:	1
+
+epsilon, green3	:	0
+delta, green3	:	2
+
++, pink1		:	2
+×, orange1		:	2
+^, tomato1		:	2
+!, tomato1		:	1
+max, orchid1	:	2
+max', orchid1	:	2
+
+
+rule
+
+// addition
+
+0 >< +(X,X) .
++(Y, S(X)) >< S(+(Y, X)) .
+
+
+// Effacement et duplication
+
+epsilon >< 0 .
+epsilon >< S(epsilon) .
+delta(0, 0) >< 0 .
+delta(S(n1), S(n2)) >< S(delta(n1, n2)) .
+
+
+// multiplication
+
+×(epsilon, 0) >< 0 .
+// ×(delta(X, Y), Z) >< S(×(Y, +(X, Z))) .
+S(×(y1, p')) >< ×(delta(y1, +(p', p)), p) .
+
+// factorielle
+
+!(S(0)) >< 0 .
+!(Y) >< S(delta(X, !(×(S(X), Y)))) .
+
+
+// puissance
+
+^(epsilon, S(0)) >< 0 .
+^(delta(Y, X), Z) >< S(^(X, ×(Y, Z))) .
+
+
+// max
+
+max(Y, résultat) >< 0
+résultat -- Y .
+
+max(Y, résultat) >< S(X)
+max'(X, résultat) -- Y .
+
+max'(Y, résultat) >< 0
+résultat -- S(Y) .
+
+max'(Y, résultat) >< S(X)
+max(Y, résultat') -- X
+résultat -- S(résultat')
+.
+
+
+net
+
+// 2 + 3
++(S(S(S(0))), "2+3") -- S(S(0))
+
+// 2 × 2
+// ×(S(S(0)), "2×2") -- S(S(0))
+
+// (1+0)×2
+// S(0) -- +(0, ×(S(S(0)), "(1+0)×2"))
+
+// 3×(2+1)
+// S(S(S(0))) -- ×(A, "3×(2+1)")
+// S(S(0)) -- +(S(0), A)
+
+// 2^3
+// ^(S(S(0)), "2^3") -- S(S(S(0)))
+
+// 3!
+// S(S(S(0))) -- !("3!")
+
+// 8! = 40320
+// 103 506 475 CUT ELIMINATIONS (approx. 25 min. on PII)
+// S(S(S(S(S(S(S(S(0)))))))) -- !("8!")
+
+// max(2,3)
+// S(S(0)) -- max(S(S(S(0))), "max(2,3)")
+
+

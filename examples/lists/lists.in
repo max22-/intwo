@@ -1,0 +1,63 @@
+// Quelques manipulations élémentaires sur les listes et les arbres :
+//
+//		- concaténation ("classique" et par différence) de listes
+//		- renversement (miroir) d'une liste
+//		- transformation d'un arbre en peigne
+//
+// Créé le 5 janvier 1999
+
+
+symbol
+
+diff, LimeGreen		: 2
+cons, LimeGreen		: 2
+nil, LimeGreen		: 0
+feuille, LimeGreen	: 1
+
+conc, red			: 2
+"conc d", red		: 2
+ouvre, pink			: 2
+miroir, red			: 2
+peigne, red			: 2
+
+
+rule
+
+// Concaténation "classique"
+
+conc(A, A) >< nil .
+conc(A, cons(B, C)) >< cons(B, conc(A, C)) .
+
+
+// Concaténation différence
+
+diff(A, B) >< "conc d"(ouvre(C, B), diff(A, C)) .
+diff(A, B) >< ouvre(B, A) .
+
+
+// Renversement (miroir) d'une liste
+
+nil >< miroir(l, l) .
+cons(u, miroir(cons(u, aux), résultat)) >< miroir(aux, résultat) .
+
+
+// Transformation d'un arbre en peigne
+
+peigne(A, cons(B,A)) >< feuille(B) .
+peigne(A, B) >< cons(peigne(C,B),peigne(A,C)) .
+
+
+net
+
+cons(a, cons(b, cons(c, nil))) -- "conc"(cons(d, cons(e, nil)), résultat)
+
+// diff(cons(a, cons(b, cons(c, fin1))), fin1) --
+// "conc d"(diff(cons(d, cons(e, fin2)), fin2), résultat)
+
+// miroir(nil, résultat) -- cons(a, cons(b, cons(c, cons(d, cons(e, nil)))))
+
+// cons(feuille(a), cons(cons(feuille(b), feuille(c)), feuille(d)))
+// -- peigne(nil, résultat)
+
+
+

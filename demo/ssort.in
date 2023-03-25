@@ -1,0 +1,23 @@
+symbol
+
+	cons,		LimeGreen:	2
+	nil,		LimeGreen:	0
+	cmp,		RoyalBlue1:	3
+	ssort,		red:		1
+	select,		pink:		3
+
+rule
+
+	ssort(nil) >< nil .
+	ssort(cons(pp, reste))
+	>< cons(u, select(ssort(reste), pp, u)) .
+	select(nil, X, X) >< nil .
+	select(cons(pg, l''), pp, cmp(ZZ, pg, pp))
+	>< cons(v, select(l'',ZZ , v)) .
+
+net
+
+	ssort(s)
+	-- cons(v_1, cons(v_2, cons(v_3, cons(u_4, nil))))
+
+	u_3 -- v_3 u_2 -- v_2 u_1 -- v_1

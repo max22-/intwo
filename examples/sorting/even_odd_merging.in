@@ -1,0 +1,112 @@
+// fusion "pair/impair", le 4 février 1999
+//
+// Méthode de Batcher pour fusionner deux listes triées (Knuth Vol. 3 p. 224)
+// dernière modification le 23 février 1999
+
+// -------------------------------------------------------------------------------
+//
+// Pour fusionner <x1, x2, ..., x2^n> et <y1, y2, ..., y2^n> :
+//
+// Si n=0 il suffit de faire la "comparaison-échange" (x1:y1) sur <x1,y1>
+//
+// Sinon :
+// -	on fusionne <x1, x3, ..., x(2^n)-1> et <y1, y3, ..., y(2^n)-1>
+// 		=> on obtient <v1, v2, ..., v2^n>
+// -	on fusionne <x2, x4, ..., x2^n> et <y2, y4, ..., y2^n>
+// 		=> on obtient <w1, w2, ..., w2^n>
+// -	on fait les "comparaison-échange" (w1:v2), (w2,v3), ..., (w(2^n)-1:v2^n)
+//		sur <v1, w1, v2, w2, v3, w3, ..., v(2^n)-1, w(2^n)-1, v2^n, w2^n>
+// 
+// -------------------------------------------------------------------------------
+
+symbol
+
+cons, green3		: 2
+nil, green3			: 0
+
+"p/i", orange1		: 2	// l -- p/i("elts de rang pair", "elts de rang impair")
+range, pink1		: 3 // a -- range(b, "plus petit", "plus grand")
+fusion, tomato1		: 2 // l1 -- fusion(l2, "fusion de l1 et l2")
+fusion, tomato1		: 3 // l2 -- fusion(u, l1, "fusion de u.l1 et l2)
+fusion, tomato1		: 4 // l2 -- fusion(u, l1, v, "fusion de u.l1 et v.l2")
+
+croise, purple		: 2
+croise', purple		: 2
+croise', purple		: 3
+
+miroir: 2
+
+
+rule
+
+miroir(X, X) >< nil .
+miroir(d, f) >< cons(u, miroir(d, cons(u, f))) .
+
+
+
+"p/i"(nil, nil) >< nil
+.
+
+"p/i"(pairs, impairs) >< cons(u, l)
+impairs -- cons(u, impairs')
+l -- "p/i"(impairs', pairs)
+.
+
+fusion(fusion(u, l1, l'), l') >< cons(u, l1) .
+
+fusion(u, l1, l') >< cons(v, fusion(u, l1, v, l')) .
+
+fusion(u, l1, l') >< cons(v, l2)
+l2 -- fusion(u, l1, v, l')
+.
+
+fusion(u, l1, v, l') >< nil
+u -- range(v, pp, pg)
+l' -- cons(pp, cons(pg, l1))
+.
+
+// Avec des coupures dans le membre droit on écrirait : --------------------------
+//
+//	fusion(u, l1, v1, l') >< cons(v2, l2)
+//	cons(u, l1) -- "p/i"(l10, l11)
+//	cons(v1, cons(v2, l2)) -- "p/i"(l20, l21)
+//	l11 -- fusion(l21, v)
+//	l10 -- fusion(l20, w)
+//	v -- croise(w, l')
+//
+// -------------------------------------------------------------------------------
+
+fusion(u1, l1, v1, l') >< cons(v2, l2)
+l1 -- "p/i"(l11, l10)
+l2 -- "p/i"(l20, l21)
+l21 -- fusion(u1, l11, v1, v)
+l10 -- fusion(v2, l20, w)
+v -- croise(w, l')
+.
+
+croise(w, l') >< cons(v1, v)
+l' -- cons(v1, suite)
+v -- croise'(w, suite)
+.
+
+croise'(w, l') >< cons(v2, v)
+w -- croise'(v2, v, l')
+.
+
+croise'(v2, v, l') >< cons(w1, w)
+range(v2, pp, pg) -- w1
+l' -- cons(pp, cons(pg, suite))
+croise'(w, suite) -- v
+.
+
+croise'(w, w) >< nil
+
+
+net
+
+// cons(a1, cons(a2, cons(a3, cons(a4, nil))))
+// -- fusion( cons(b1, cons(b2, cons(b3, cons(b4, nil)))) , résultat )
+
+cons(a1, cons(a2, nil)) -- fusion( cons(b1, cons(b2, nil)), résultat )
+
+

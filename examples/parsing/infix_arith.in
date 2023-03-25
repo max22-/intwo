@@ -1,0 +1,57 @@
+// double_infix_parser.in (deux opérateurs)
+// création : le 25 février 1999
+//
+// parser d'expressions arithmétiques en ordre infixe formées de : 0 + × ( )
+// L'addition et la multiplication sont associatives à gauche et la
+// multiplication a priorité sur l'addition
+// -----------------------------------------------------------------------------
+
+
+symbol
+
++	, white			: 1
+×	, white			: 1
+0	, white			: 1
+"("	, white			: 1
+")"	, white			: 1
+
+0	, limegreen		: 0
++	, limegreen		: 2
+×	, limegreen		: 2
+
+p	, tomato		: 2	// flot -- p(reste, arbre)
+q	, orange		: 3 // flot -- q(reste, arbre, arbre aux)
+r	, orange		: 3 // flot -- r(reste, arbre, arbre aux)
+
+
+rule
+
+p(R, 0) >< 0(R) .
+
+p(R, A) >< "("(p(q(r(R, A, X1), X1, X2), X2)) .
+
+q(R, A, X) >< ×(p(q(R, A, ×(X, A2)), A2)) .
+
+q(")"(R), X, X) >< ")"(R) .
+
+q(+(R), X, X) >< +(R) .
+
+r(R, X, X) >< ")"(R) .
+
+r(R, A, X) >< +(p(q(r(R, A, +(X, A2)), A2, X2), X2)) .
+
+
+net
+
+p(reste, arbre) --
+
+"(" (
+"0" (
+"+" (
+"0" (
+"×" (
+"0" (
+")" (
+flot )))))))
+
+

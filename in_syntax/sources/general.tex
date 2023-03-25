@@ -1,0 +1,48 @@
+% syntaxe generale d'un programme
+% 15 novembre 2001
+
+On d\'ecrit la syntaxe concr\`ete des r\'eseaux d'interaction.
+%
+Un programme \emph{interactif} est compos\'e de trois parties
+commen\c cant par les mots-cl\'es \texttt{symbol}, \texttt{rule}
+et \texttt{net} :
+
+\begin{tabular}{ll}
+%
+\texttt{symbol} &
+d\'eclaration des symboles avec leur arit\'e respective.\\
+%
+\texttt{rule} &
+liste des r\`egles d'interaction.\\
+%
+\texttt{net} &
+r\'eseau sur lequel commence la r\'eduction.\\
+%
+\end{tabular}
+
+\
+
+On peut d\'eclarer un symbole de deux mani\`eres diff\'erentes :
+
+\begin{center}
+%
+\textsf{
+\begin{tabular}{l@{\ \ ::=\ \ }l}
+%
+DECLARATION & symbole \ : nombre $|$ symbole , couleur \ : nombre
+%
+\end{tabular}
+}
+%
+\end{center}
+
+La deuxi\`eme d\'eclaration permet de sp\'ecifier (en texte)
+la couleur des cellules correspondantes.
+%
+Un m\^eme symbole peut \^etre d\'eclar\'e plusieurs fois avec
+des arit\'es diff\'erentes ; l'interpr\`ete fera comme
+s'il s'agissait de symboles diff\'erents.
+
+
+
+

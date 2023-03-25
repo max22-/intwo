@@ -1,0 +1,15 @@
+\begin{thebibliography}{\textsc{Laf,95}}
+
+\bibitem[\textsc{Laf,90}]{Laf90}
+Y.~\textsc {Lafont}.
+\newblock Interaction nets.
+\newblock {\em In proceedings of the 17th Annnual ACM Symposium on Principles
+  of Programming Languages, Orlando (Fla., \mbox{USA})}, pages 95--108, 1990.
+
+\bibitem[\textsc{Laf,95}]{Laf95}
+Y.~\textsc {Lafont}.
+\newblock From proof-nets to interaction nets.
+\newblock In {\em Advances in Linear Logic}, London Mathematical Society
+  Lecture Note Series 222. Cambridge University Press, 1995.
+
+\end{thebibliography}

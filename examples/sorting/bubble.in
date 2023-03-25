@@ -1,0 +1,38 @@
+// tri à bulles
+// création : le 11 mars 1999
+
+// en fait le tri à bulles est un tri par sélection où l'on cherche le
+// plus grand élément de façon itérative (avec un maximum courant pendant le
+// parcours de la liste)
+
+
+symbol
+
+cons: 2
+nil: 0
+
+range: 3
+trie: 2
+max: 3
+
+
+
+rule
+
+trie(X, X) >< nil .
+
+trie(d, f) >< cons(u, max(trie(d, cons(m, f)), m, u)) .
+
+max(nil, m, m) >< nil .
+
+// max(cons(pp, l''), M, range(m, pp, M)) >< cons(v, max(l'', m, v))
+
+max(cons(pp, aux), M, u) >< cons(range(u, pp, pg), max(aux, M, pg)) .
+
+
+net
+
+trie(résultat, nil)
+--
+cons(a, cons(b, cons(c, cons(d, cons(e, nil)))))
+

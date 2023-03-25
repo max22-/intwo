@@ -1,0 +1,55 @@
+symbol
+
+@,			Purple		: 2
+a,			red			: 2
+lambda,		Green		: 2
+
+s,			RoyalBlue1	: 2
+delta,		yellow		: 2
+
+do,			white		: 1
+done,		LimeGreen	: 1
+
+
+
+rule
+
+
+// =============================================================================
+
+lambda(U,do(V)) >< @(U, V) .
+
+do(Y) >< a(do(@(X,Y)), X) .
+
+done(@(V,R)) >< @(V,R) .
+
+do(done(lambda(X,Y))) >< lambda(X,Y) .
+
+
+// Duplication =================================================================
+
+delta(a(A1,B1), a(A2,B2)) >< a(delta(A1,A2), delta(B1,B2)) .
+delta(lambda(A1,B1), lambda(A2,B2)) >< lambda(delta(A1,A2), delta(B1,B2)) .
+delta(s(A1,B1), s(A2,B2)) >< s(delta(A1,A2), delta(B1,B2)) .
+delta(A0, B0) >< delta(A0, B0) .
+
+
+net
+
+
+// do(result) -- a( lambda(s(X2,X1), a(lambda(s(Y2,Y1), a(a(Y1,Y2),X1)), lambda(Z,a(Z,X2)))), lambda(I,I))
+
+// lambda(A, a(A, B)) -- delta(C, @(C, @(D, result)))
+// lambda(E, E) -- s(B, D)
+
+// lambda(A, A) -- s(delta(B, do(@(B, @(C, result)))), C)
+
+// s(C1, lambda(A1, A1)) -- delta(B1, do(@(B1, @(C1, result1))))
+
+// @(s(A, lambda(B, B)), @(delta(A, lambda(D,D)), result1)) -- lambda(E,E)
+
+do(@(delta(lambda(A,A), lambda(B, B)), result1))
+--
+lambda(C, C)
+	
+

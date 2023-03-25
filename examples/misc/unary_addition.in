@@ -1,0 +1,22 @@
+// L'addition en notation unaire.
+// Elle est définie par : 0+x = x et Sx + y = S(x+y)
+// Il y a donc deux règles d'interaction : + >< 0 et + >< S
+
+
+symbol
+
+0, turquoise2	:	0
+S, turquoise2	:	1
++, pink1		:	2
+
+
+rule
+
+0 >< +(X,X) .
++(Y, S(X)) >< S(+(Y, X)) .
+
+
+net
+
++(S(0), result) -- S(S(0))
+

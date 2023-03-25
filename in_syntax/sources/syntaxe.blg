@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (Web2C 7.3)
+The top-level auxiliary file: syntaxe.aux
+The style file: /users/lippi/latex/shared/myalpha.bst
+Database file #1: /users/lippi/latex/shared/biblio.bib
+You've used 2 entries,
+            2657 wiz_defined-function locations,
+            588 strings with 4913 characters,
+and the built_in function-call counts, 757 in all, are:
+= -- 75
+> -- 16
+< -- 3
++ -- 4
+- -- 4
+* -- 44
+:= -- 121
+add.period$ -- 7
+call.type$ -- 2
+change.case$ -- 10
+chr.to.int$ -- 2
+cite$ -- 2
+duplicate$ -- 40
+empty$ -- 67
+format.name$ -- 8
+if$ -- 166
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 2
+newline$ -- 13
+num.names$ -- 6
+pop$ -- 13
+preamble$ -- 1
+purify$ -- 12
+quote$ -- 0
+skip$ -- 32
+stack$ -- 0
+substring$ -- 37
+swap$ -- 10
+text.length$ -- 3
+text.prefix$ -- 2
+top$ -- 0
+type$ -- 16
+warning$ -- 0
+while$ -- 6
+width$ -- 3
+write$ -- 29

@@ -1,0 +1,105 @@
+% var_cut_elim.tex
+% 9 novembre 201
+%
+% Un exemple de suppression des coupures avec une variable
+% (appelees aussi "coupures axiomes")
+%
+% Remarque : source bricole et illisible
+
+
+
+\begin{tabular}{l}
+$
+%
+\begin{array}[b]{c}
+%
+\settowidth{\longueur}{$ \rightsquigarrow\quad$}
+\makebox[\longueur]{ }
+%
+\begin{array}{c@{\quad\connect\quad}l}
+\settowidth{\longueur}{$t$}\makebox[\longueur]{\fbox{$t$}}
+		& \eff		\\
+x		& \dun(y,z)	\\
+u		& \dur(v,w)	\\
+p		& q			\\
+t		& x			\\
+y		& v			\\
+z		& u
+\end{array}\\
+\
+\end{array}
+%
+\begin{array}[b]{c}
+\rightsquigarrow\quad
+%
+\begin{array}{c@{\quad\connect\quad}l}
+\settowidth{\longueur}{$x$}\makebox[\longueur]{\fbox{$x$}}
+		& \dun(y,z)	\\
+u		& \dur(v,w)	\\
+p		& q			\\
+\eff	& x			\\
+y		& v			\\
+z		& u
+\end{array}\\
+\
+%
+\end{array}
+%
+\begin{array}[b]{c}
+\rightsquigarrow\quad
+%
+\begin{array}{c@{\quad\connect\quad}l}
+\settowidth{\longueur}{$u$}\makebox[\longueur]{\fbox{$u$}}
+ 		& \dur(v,w)	\\
+p		& q			\\
+\eff	& \dun(y,z)	\\
+y		& v			\\
+z		& u
+\end{array}\\
+\
+\end{array}
+$\\[-8pt]
+%
+$
+\begin{array}[b]{c}
+%
+\settowidth{\longueur}{$ \rightsquigarrow\quad$}
+\makebox[\longueur]{$\rightsquigarrow\quad$}
+%
+\begin{array}{c@{\quad\connect\quad}l}
+p		& q			\\
+\eff	& \dun(y,z)	\\
+\settowidth{\longueur}{$y$}\makebox[\longueur]{\fbox{$y$}}
+		& v			\\
+z		& \dur(v,w)
+\end{array}\\
+\ 
+\end{array}
+%
+\begin{array}[b]{c}
+%
+\rightsquigarrow\quad
+%
+\begin{array}{c@{\quad\connect\quad}l}
+p		& q			\\
+\eff	& \dun(v,z)	\\
+\settowidth{\longueur}{$z$}\makebox[\longueur]{\fbox{$z$}}
+		& \dur(v,w)
+\end{array}\\
+\ 
+\end{array}
+%
+\begin{array}[b]{c}
+%
+\rightsquigarrow\quad
+%
+\begin{array}{c@{\quad\connect\quad}l}
+p		& q			\\
+\eff	& \dun(v,\ \dur(v,w))
+\end{array}\\
+\ 
+\end{array}
+%
+$
+\end{tabular}
+

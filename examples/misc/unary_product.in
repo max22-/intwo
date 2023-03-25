@@ -1,0 +1,42 @@
+// La multiplication en notation unaire.
+// La multiplication est définie en utilisant l'addition par :
+// 0 × y = 0 et Sy × z = y × z + z
+//
+// Il faut définir explicitement comment on duplique (dupl) et efface (efface)
+// des entiers.
+
+symbol
+
+0, turquoise2	:	0
+S, turquoise2	:	1
+
+efface, green3	:	0
+dupl, green3	:	2
+
++, pink1		:	2
+×, orange1		:	2
+
+
+rule
+
+// Règles pour l'addition
+
+0 >< +(X,X) .
++(Y, S(X)) >< S(+(Y, X)) .
+
+// Règles pour efface et dupliquer un entier
+
+efface >< 0 .
+efface >< S(efface) .
+dupl(0, 0) >< 0 .
+dupl(S(n1), S(n2)) >< S(dupl(n1, n2)) .
+
+// Règles pour la multiplication
+
+×(efface, 0) >< 0 .
+×(dupl(X, Y), Z) >< S(×(Y, +(X, Z))) .
+
+
+net
+
+×(S(S(0)), "2×2") -- S(S(0))

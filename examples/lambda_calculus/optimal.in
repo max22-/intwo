@@ -1,0 +1,416 @@
+symbol
+
+lambda,	yellow		: 2
+a,		red			: 2
+@,		Purple		: 2
+
+d1,		RoyalBlue1	: 2
+d2,		RoyalBlue1	: 2
+d3,		RoyalBlue1	: 2
+d?,		RoyalBlue1	: 2
+
+D_,		yellow		: 2
+D_1,	yellow		: 2
+D_2,	yellow		: 2
+D_3,	yellow		: 2
+D_13,	yellow		: 2
+D_23,	yellow		: 2
+D_12,	yellow		: 2
+D_123,	yellow		: 2
+
+D_?,	yellow		: 2
+D_1?,	yellow		: 2
+D_2?,	yellow		: 2
+D_3?,	yellow		: 2
+D_13?,	yellow		: 2
+D_23?,	yellow		: 2
+D_12?,	yellow		: 2
+D_123?,	yellow		: 2
+
+a_,		red			: 2
+a_1,	red			: 2
+a_2,	red			: 2
+a_3,	red			: 2
+a_13,	red			: 2
+a_23,	red			: 2
+a_12,	red			: 2
+a_123,	red			: 2
+
+a_?,	red			: 2
+a_1?,	red			: 2
+a_2?,	red			: 2
+a_3?,	red			: 2
+a_13?,	red			: 2
+a_23?,	red			: 2
+a_12?,	red			: 2
+a_123?,	red			: 2
+
+go,		white		: 1
+*,		limegreen	: 0
+
+
+rule
+
+
+// lambda >< a =================================================================
+
+lambda(X,Y) >< a(Y, X) .
+
+// @ >< a ======================================================================
+
+a(V,@(@(A1,B1),V)) >< @(A1,B1) .
+
+// delta >< lambda =============================================================
+
+D_(lambda(A1,B1), lambda(A2,B2)) >< lambda(D_?(A1,A2), d?(B1,B2)) .
+D_1(lambda(A1,B1), lambda(A2,B2)) >< lambda(D_1?(A1,A2), d?(B1,B2)) .
+D_2(lambda(A1,B1), lambda(A2,B2)) >< lambda(D_2?(A1,A2), d?(B1,B2)) .
+D_3(lambda(A1,B1), lambda(A2,B2)) >< lambda(D_3?(A1,A2), d?(B1,B2)) .
+D_12(lambda(A1,B1), lambda(A2,B2)) >< lambda(D_12?(A1,A2), d?(B1,B2)) .
+D_13(lambda(A1,B1), lambda(A2,B2)) >< lambda(D_13?(A1,A2), d?(B1,B2)) .
+D_23(lambda(A1,B1), lambda(A2,B2)) >< lambda(D_23?(A1,A2), d?(B1,B2)) .
+D_123(lambda(A1,B1), lambda(A2,B2)) >< lambda(D_123?(A1,A2), d?(B1,B2)) .
+
+// delta_I >< delta_i (annihilation) ===========================================
+
+D_1(A0, B0) >< d1(A0, B0) .
+D_12(A0, B0) >< d1(A0, B0) .
+D_13(A0, B0) >< d1(A0, B0) .
+D_1?(A0, B0) >< d1(A0, B0) .
+D_123(A0, B0) >< d1(A0, B0) .
+
+D_2(A0, B0) >< d2(A0, B0) .
+D_12(A0, B0) >< d2(A0, B0) .
+D_23(A0, B0) >< d2(A0, B0) .
+D_2?(A0, B0) >< d2(A0, B0) .
+D_123(A0, B0) >< d2(A0, B0) .
+
+D_3(A0, B0) >< d3(A0, B0) .
+D_13(A0, B0) >< d3(A0, B0) .
+D_23(A0, B0) >< d3(A0, B0) .
+D_3?(A0, B0) >< d3(A0, B0) .
+D_123(A0, B0) >< d3(A0, B0) .
+
+D_?(A0, B0) >< d?(A0, B0) .
+D_1?(A0, B0) >< d?(A0, B0) .
+D_2?(A0, B0) >< d?(A0, B0) .
+D_3?(A0, B0) >< d?(A0, B0) .
+D_12?(A0, B0) >< d?(A0, B0) .
+D_13?(A0, B0) >< d?(A0, B0) .
+D_23?(A0, B0) >< d?(A0, B0) .
+
+// a >< delta_i ================================================================
+
+a(V,@(d1(X,Z),V)) >< d1(X,Z) .
+a(V,@(d2(X,Z),V)) >< d2(X,Z) .
+a(V,@(d3(X,Z),V)) >< d3(X,Z) .
+a(V,@(d?(X,Z),V)) >< d?(X,Z) .
+
+// delta_I >< delta_i (commutation) ============================================
+
+d1(D_(A1,B1), D_(A2,B2)) >< D_(d1(A1,A2), d1(B1,B2)) .
+d1(D_2(A1,B1), D_2(A2,B2)) >< D_2(d1(A1,A2), d1(B1,B2)) .
+d1(D_3(A1,B1), D_3(A2,B2)) >< D_3(d1(A1,A2), d1(B1,B2)) .
+d1(D_23(A1,B1), D_23(A2,B2)) >< D_23(d1(A1,A2), d1(B1,B2)) .
+
+d1(D_?	(A1,B1), D_?	(A2,B2)) >< D_?		(d1(A1,A2), d1(B1,B2)) .
+d1(D_2?	(A1,B1), D_2?	(A2,B2)) >< D_2?	(d1(A1,A2), d1(B1,B2)) .
+d1(D_3?	(A1,B1), D_3?	(A2,B2)) >< D_3?	(d1(A1,A2), d1(B1,B2)) .
+d1(D_23?(A1,B1), D_23?	(A2,B2)) >< D_23?	(d1(A1,A2), d1(B1,B2)) .
+
+d2(D_(A1,B1), D_(A2,B2)) >< D_(d2(A1,A2), d2(B1,B2)) .
+d2(D_1(A1,B1), D_1(A2,B2)) >< D_1(d2(A1,A2), d2(B1,B2)) .
+d2(D_3(A1,B1), D_3(A2,B2)) >< D_3(d2(A1,A2), d2(B1,B2)) .
+d2(D_13(A1,B1), D_13(A2,B2)) >< D_13(d2(A1,A2), d2(B1,B2)) .
+
+d2(D_?(A1,B1), D_?(A2,B2)) >< D_?(d2(A1,A2), d2(B1,B2)) .
+d2(D_1?(A1,B1), D_1?(A2,B2)) >< D_1?(d2(A1,A2), d2(B1,B2)) .
+d2(D_3?(A1,B1), D_3?(A2,B2)) >< D_3?(d2(A1,A2), d2(B1,B2)) .
+d2(D_13?(A1,B1), D_13?(A2,B2)) >< D_13?(d2(A1,A2), d2(B1,B2)) .
+
+d3(D_(A1,B1), D_(A2,B2)) >< D_(d3(A1,A2), d3(B1,B2)) .
+d3(D_1(A1,B1), D_1(A2,B2)) >< D_1(d3(A1,A2), d3(B1,B2)) .
+d3(D_2(A1,B1), D_2(A2,B2)) >< D_2(d3(A1,A2), d3(B1,B2)) .
+d3(D_12(A1,B1), D_12(A2,B2)) >< D_12(d3(A1,A2), d3(B1,B2)) .
+
+d3(D_?(A1,B1), D_?(A2,B2)) >< D_?(d3(A1,A2), d3(B1,B2)) .
+d3(D_1?(A1,B1), D_1?(A2,B2)) >< D_1?(d3(A1,A2), d3(B1,B2)) .
+d3(D_2?(A1,B1), D_2?(A2,B2)) >< D_2?(d3(A1,A2), d3(B1,B2)) .
+d3(D_12?(A1,B1), D_12?(A2,B2)) >< D_12?(d3(A1,A2), d3(B1,B2)) .
+
+d?(D_(A1,B1), D_(A2,B2)) >< D_(d?(A1,A2), d?(B1,B2)) .
+d?(D_1(A1,B1), D_1(A2,B2)) >< D_1(d?(A1,A2), d?(B1,B2)) .
+d?(D_2(A1,B1), D_2(A2,B2)) >< D_2(d?(A1,A2), d?(B1,B2)) .
+d?(D_3(A1,B1), D_3(A2,B2)) >< D_3(d?(A1,A2), d?(B1,B2)) .
+
+d?(D_12(A1,B1), D_12(A2,B2)) >< D_12(d?(A1,A2), d?(B1,B2)) .
+d?(D_13(A1,B1), D_13(A2,B2)) >< D_13(d?(A1,A2), d?(B1,B2)) .
+d?(D_23(A1,B1), D_23(A2,B2)) >< D_23(d?(A1,A2), d?(B1,B2)) .
+d?(D_123(A1,B1), D_123(A2,B2)) >< D_123(d?(A1,A2), d?(B1,B2)) .
+
+
+// @ >< delta_I ================================================================
+
+D_(A,B) >< @(a_(V, D_(A,B)),V) .
+D_1(A,B) >< @(a_1(V, D_1(A,B)),V) .
+D_2(A,B) >< @(a_2(V, D_2(A,B)),V) .
+D_3(A,B) >< @(a_3(V, D_3(A,B)),V) .
+D_13(A,B) >< @(a_13(V, D_13(A,B)),V) .
+D_23(A,B) >< @(a_23(V, D_23(A,B)),V) .
+D_12(A,B) >< @(a_12(V, D_12(A,B)),V) .
+D_123(A,B) >< @(a_123(V, D_123(A,B)),V) .
+
+D_?(A,B) >< @(a_?(V, D_?(A,B)),V) .
+D_1?(A,B) >< @(a_1?(V, D_1?(A,B)),V) .
+D_2?(A,B) >< @(a_2?(V, D_2?(A,B)),V) .
+D_3?(A,B) >< @(a_3?(V, D_3?(A,B)),V) .
+D_13?(A,B) >< @(a_13?(V, D_13?(A,B)),V) .
+D_23?(A,B) >< @(a_23?(V, D_23?(A,B)),V) .
+D_12?(A,B) >< @(a_12?(V, D_12?(A,B)),V) .
+D_123?(A,B) >< @(a_123?(V, D_123?(A,B)),V) .
+
+
+// a_I >< @ ====================================================================
+
+a_(A,B) >< @(a_(V, a_(A,B)),V) .
+a_1(A,B) >< @(a_1(V, a_1(A,B)),V) .
+a_2(A,B) >< @(a_2(V, a_2(A,B)),V) .
+a_3(A,B) >< @(a_3(V, a_3(A,B)),V) .
+a_13(A,B) >< @(a_13(V, a_13(A,B)),V) .
+a_23(A,B) >< @(a_23(V, a_23(A,B)),V) .
+a_12(A,B) >< @(a_12(V, a_12(A,B)),V) .
+a_123(A,B) >< @(a_123(V, a_123(A,B)),V) .
+
+a_?(A,B) >< @(a_?(V, a_?(A,B)),V) .
+a_1?(A,B) >< @(a_1?(V, a_1?(A,B)),V) .
+a_2?(A,B) >< @(a_2?(V, a_2?(A,B)),V) .
+a_3?(A,B) >< @(a_3?(V, a_3?(A,B)),V) .
+a_13?(A,B) >< @(a_13?(V, a_13?(A,B)),V) .
+a_23?(A,B) >< @(a_23?(V, a_23?(A,B)),V) .
+a_12?(A,B) >< @(a_12?(V, a_12?(A,B)),V) .
+a_123?(A,B) >< @(a_123?(V, a_123?(A,B)),V) .
+
+
+
+
+// a_I >< delta_i ==============================================================
+
+a_		(D_		(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_1		(D_1	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_2		(D_2	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_3		(D_3	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_13	(D_13	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_23	(D_23	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_12	(D_12	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_123	(D_123	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_?		(D_?	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_1?	(D_1?	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_2?	(D_2?	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_3?	(D_3?	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_13?	(D_13?	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_23?	(D_23?	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_12?	(D_12?	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+a_123?	(D_123?	(A1,A2), d1(B1,B2)) ><	d1(a(A1,B1),a(A2,B2)) .
+
+a_		(D_		(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_1		(D_1	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_2		(D_2	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_3		(D_3	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_13	(D_13	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_23	(D_23	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_12	(D_12	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_123	(D_123	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_?		(D_?	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_1?	(D_1?	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_2?	(D_2?	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_3?	(D_3?	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_13?	(D_13?	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_23?	(D_23?	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_12?	(D_12?	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+a_123?	(D_123?	(A1,A2), d2(B1,B2)) ><	d2(a(A1,B1),a(A2,B2)) .
+
+a_		(D_		(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_1		(D_1	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_2		(D_2	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_3		(D_3	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_13	(D_13	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_23	(D_23	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_12	(D_12	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_123	(D_123	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_?		(D_?	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_1?	(D_1?	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_2?	(D_2?	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_3?	(D_3?	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_13?	(D_13?	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_23?	(D_23?	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_12?	(D_12?	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+a_123?	(D_123?	(A1,A2), d3(B1,B2)) ><	d3(a(A1,B1),a(A2,B2)) .
+
+a_		(D_		(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_1		(D_1	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_2		(D_2	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_3		(D_3	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_13	(D_13	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_23	(D_23	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_12	(D_12	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_123	(D_123	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_?		(D_?	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_1?	(D_1?	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_2?	(D_2?	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_3?	(D_3?	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_13?	(D_13?	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_23?	(D_23?	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_12?	(D_12?	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+a_123?	(D_123?	(A1,A2), d?(B1,B2)) ><	d?(a(A1,B1),a(A2,B2)) .
+
+
+// go (utile uniquement pour écrire les lambda termes plus facilement) =========
+
+go(lambda(U,V)) >< lambda(go(U),go(V)) .
+go(D_(U,V)) >< D_(go(U),go(V)) .
+go(R) >< @(go(a(V,R)),go(V)) .
+go(R) >< go(R) .
+
+
+// duplication de l'étoile =====================================================
+
+D_(*,*) >< * .
+D_1(*,*) >< * .
+D_2(*,*) >< * .
+D_3(*,*) >< * .
+D_12(*,*) >< * .
+D_13(*,*) >< * .
+D_23(*,*) >< * .
+D_123(*,*) >< * .
+
+D_?(*,*) >< * .
+D_1?(*,*) >< * .
+D_2?(*,*) >< * .
+D_3?(*,*) >< * .
+D_12?(*,*) >< * .
+D_13?(*,*) >< * .
+D_23?(*,*) >< * .
+
+
+
+net
+
+// (delta)2
+// --------
+
+// a(lambda(lambda(A, B), D_(a(B, C), a(C, A))), result) -- lambda(D, D_(E, a(E, D)))
+
+
+// (delta)delta
+// ============
+
+// a(lambda(A, D_(B, a(B, A))), dédé) -- lambda(C, D_(D, a(D, C)))
+
+
+// Nasty
+// -----
+
+// a(lambda(F, D_(a(G, H), a(H, F))) , E) --
+// lambda(A, D_(a(lambda(B, epsilon), D), a(lambda(D, B), A)))
+// méchant -- lambda(E, G)
+
+
+// Didier
+// ------
+
+// a(lambda(A, B), C) -- lambda(D, D_(a(lambda(E, E), F), a(F, D)))
+// a(lambda(C, a(B, A)), result) -- lambda(G, D_(a(lambda(H, H), I), a(I, G)))
+
+
+// Pedro
+// -----
+
+// a(A, D_1(B, C)) -- d1(D, lambda(B, D))
+// result -- lambda(C, A)
+	
+// Marc
+// ----
+
+// marc -- lambda(G, F)
+// a(lambda(A, epsilon), C) -- lambda(D, D_(E, a(E, D)))
+// a(F, G) -- lambda(C, A)
+
+
+// François
+// --------
+
+// a(lambda(A, a(B, A)), C) -- lambda(D, D_(E, a(E, a(F, D))))
+// a(G, H) -- lambda(C, D_(B, F))
+// françois -- lambda(H, G)
+
+
+// Marcel (asgu p. 9 figure 2.1) => (z)z
+// ------
+
+// a(A, B) -- lambda(C, D_(D, a(D, C)))
+// a(lambda(B, a(z, A)), marcel) -- lambda(F, a(lambda(G, G), F))
+
+
+// Lamping (asgu bas de la p.12) => I
+// -------
+
+// a(A, B) -- lambda(C, D_(a(lambda(D, D), E), a(E, C)))
+// a(lambda(B, a(lambda(F, F), A)), S) --
+// lambda(G, D_(a(lambda(H, H), I), a(I, G)))
+
+
+// Stefano1 (asgu exercice 301 p.34) => ( (x)x ) (y)y
+// --------
+
+// a(lambda(A, a(B, C)),D) --
+// lambda(E, D_(a(lambda(F, epsilon), H), a(lambda(H, F), E)))
+// a(lambda(lambda(lambda(I, J), K), D_(a(J, L), a(K, a(L, I)))), T) --
+// lambda(D, a(lambda(C, B), a(X, a(Y, A))))
+
+
+// Sans la règle a><di on obtient le réseau qui suit.
+// Le résultat est faux quelque soit l'indice choisi pour a
+
+a_?(d2(Y, X), D_2(A, a(A, D_1(B, T)))) -- d1(lambda(C, epsilon), lambda(B, C))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Stefano2 (asgu exercice 301 p.34) => ( (x)y ) (x)y
+// --------
+
+// a(lambda(A, a(B, C)),D) --
+// lambda(E, D_(a(lambda(F, F), G), a(lambda(G, epsilon), E)))
+// a(lambda(lambda(lambda(I, J), K), D_(a(J, L), a(K, a(L, I)))), T) --
+// lambda(D, a(lambda(C, B), a(X, a(Y, A))))
+
+
+// Jean-Jacques (asgu p.11) avec n=4 et m=3 (4 beta-reductions)
+// ------------
+
+// a(A, B) -- lambda(C, D_(D_(D_(B1,D), E), a(E, a(D, a(B1, C)))))
+// a(lambda(B, a(*, A)), p) -- lambda(G, D_(D_(D_(H, I), J), a(lambda(K, K), a(J, a(I, a(H, G))))))
+
+
+
+
+
+
+
+
+
+
+
