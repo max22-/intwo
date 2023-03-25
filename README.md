@@ -5,7 +5,7 @@ I modified it slightly so that it compiles on a recent Linux distribution.
 
 # Build
 
-You will need libgtk+-2.0-dev, flex and bison.
+You will need libgtk2.0-dev, flex and bison.
 
 ```console
 cd sources
